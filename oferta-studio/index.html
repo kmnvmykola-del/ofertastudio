@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="theme-color" content="#f5f5ef">
+	<meta name="description"
+		content="Oferta Studio — generator ofert handlowych PDF. Wybierz firmę, dodaj pozycje, oblicz VAT i pobierz gotową ofertę.">
+	<title>Oferta Studio — dobre oferty zaczynają się tutaj</title>
+	<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+	<link rel="stylesheet" href="./style.css">
+	<script type="module" src="./app.js"></script>
+</head>
+
+<body>
+	<svg class="icon-library" aria-hidden="true">
+		<defs>
+			<symbol id="i-grid" viewBox="0 0 24 24">
+				<rect x="3" y="3" width="7" height="7" rx="1.5" />
+				<rect x="14" y="3" width="7" height="7" rx="1.5" />
+				<rect x="3" y="14" width="7" height="7" rx="1.5" />
+				<rect x="14" y="14" width="7" height="7" rx="1.5" />
+			</symbol>
+			<symbol id="i-file" viewBox="0 0 24 24">
+				<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+				<path d="M14 3v6h6M8 13h8M8 17h5" />
+			</symbol>
+			<symbol id="i-plus" viewBox="0 0 24 24">
+				<path d="M12 5v14M5 12h14" />
+			</symbol>
+			<symbol id="i-arrow" viewBox="0 0 24 24">
+				<path d="M5 12h14M13 6l6 6-6 6" />
+			</symbol>
+			<symbol id="i-down" viewBox="0 0 24 24">
+				<path d="M12 3v12M7 10l5 5 5-5M5 17v4h14v-4" />
+			</symbol>
+			<symbol id="i-check" viewBox="0 0 24 24">
+				<path d="m5 12 4 4L19 6" />
+			</symbol>
+			<symbol id="i-building" viewBox="0 0 24 24">
+				<path d="M4 21V3h11v18M15 9h5v12M2 21h20M8 7h3M8 11h3M8 15h3M8 21v-3h3v3" />
+			</symbol>
+			<symbol id="i-clock" viewBox="0 0 24 24">
+				<circle cx="12" cy="12" r="9" />
+				<path d="M12 7v5l3 2" />
+			</symbol>
+			<symbol id="i-save" viewBox="0 0 24 24">
+				<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12l4 4v12a2 2 0 0 1-2 2z" />
+				<path d="M7 3v6h10V3M7 21v-7h10v7" />
+			</symbol>
+			<symbol id="i-trash" viewBox="0 0 24 24">
+				<path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7" />
+			</symbol>
+			<symbol id="i-copy" viewBox="0 0 24 24">
+				<rect x="8" y="8" width="13" height="13" rx="2" />
+				<path d="M16 8V3H3v13h5" />
+			</symbol>
+			<symbol id="i-chevron" viewBox="0 0 24 24">
+				<path d="m9 5 7 7-7 7" />
+			</symbol>
+			<symbol id="i-spark" viewBox="0 0 24 24">
+				<path d="m12 3 2.8 6.2L21 12l-6.2 2.8L12 21l-2.8-6.2L3 12l6.2-2.8z" />
+			</symbol>
+			<symbol id="i-info" viewBox="0 0 24 24">
+				<circle cx="12" cy="12" r="9" />
+				<path d="M12 11v6M12 7v.1" />
+			</symbol>
+			<symbol id="i-close" viewBox="0 0 24 24">
+				<path d="m6 6 12 12M18 6 6 18" />
+			</symbol>
+			<symbol id="i-upload" viewBox="0 0 24 24">
+				<path d="M12 16V3M7 8l5-5 5 5M4 16v5h16v-5" />
+			</symbol>
+		</defs>
+	</svg>
+	<aside class="sidebar">
+		<a href="./" class="brand" aria-label="Oferta Studio, strona główna"><span
+				class="brand-mark"><span></span><span></span><span></span></span><span>oferta<span
+					class="brand-studio">studio</span><span class="brand-dot">.</span></span></a>
+		<div class="workspace-label">TWOJE STUDIO</div>
+		<nav aria-label="Nawigacja główna">
+			<button class="nav-button active" data-nav="generator"><svg>
+					<use href="#i-grid" />
+				</svg>Generator ofert<span class="nav-active-dot"></span></button>
+			<button class="nav-button" data-nav="drafts"><svg>
+					<use href="#i-file" />
+				</svg>Zapisane oferty<span id="draft-count" class="nav-count">0</span></button>
+			<button class="nav-button" data-nav="companies"><svg>
+					<use href="#i-building" />
+				</svg>Spółki<span class="nav-count">4</span></button>
+		</nav>
+		<div class="sidebar-note">
+			<div class="note-icon"><svg>
+					<use href="#i-spark" />
+				</svg></div>
+			<h3>Mały detal.<br>Duża różnica.</h3>
+			<p>Oferta, która wygląda<br>tak dobrze jak Twoja praca.</p><button id="load-example"
+				class="text-button">Wczytaj przykład <svg>
+					<use href="#i-arrow" />
+				</svg></button>
+		</div>
+		<div class="sidebar-bottom"><button id="about-button" class="nav-button"><svg>
+					<use href="#i-info" />
+				</svg>O aplikacji</button>
+			<div class="creator">
+				<div class="avatar">OS</div>
+				<div><strong>Oferta Studio</strong><span>Generator ofert PDF</span></div>
+			</div>
+		</div>
+	</aside>
+	<main class="main">
+		<header class="topbar">
+			<div class="breadcrumb">Twoje studio <svg>
+					<use href="#i-chevron" />
+				</svg><strong>Generator ofert</strong></div>
+		</header>
+		<section class="page-heading">
+			<div>
+				<div class="eyebrow"><span></span>MNIEJ FORMALNOŚCI. WIĘCEJ MOŻLIWOŚCI.</div>
+				<h1>Dobra oferta zaczyna się tutaj<span>.</span></h1>
+				<p>Wybierz spółkę, dodaj szczegóły. Resztą zajmiemy się my.</p>
+			</div><button class="button secondary" id="new-offer"><svg>
+					<use href="#i-plus" />
+				</svg>Nowa oferta</button>
+		</section>
+		<div class="workbench">
+			<section class="editor" aria-label="Edytor oferty">
+				<div class="editor-head">
+					<div class="editor-heading"><span class="small-icon"><svg>
+								<use href="#i-file" />
+							</svg></span>
+						<div>
+							<h2>Przygotuj ofertę</h2><span id="editor-number">OF/2026/024</span>
+						</div>
+					</div><span class="save-indicator" id="save-indicator"><span></span>Zapisano
+						lokalnie</span>
+				</div>
+				<div class="editor-tabs" role="tablist" aria-label="Etapy przygotowania oferty">
+					<button role="tab" aria-selected="true" aria-controls="panel-company"
+						id="tab-company" class="editor-tab active"
+						data-tab="company"><span>01</span>Firma i klient</button>
+					<button role="tab" aria-selected="false" aria-controls="panel-items"
+						id="tab-items" class="editor-tab"
+						data-tab="items"><span>02</span>Pozycje</button>
+					<button role="tab" aria-selected="false" aria-controls="panel-details"
+						id="tab-details" class="editor-tab"
+						data-tab="details"><span>03</span>Szczegóły</button>
+				</div>
+				<form id="offer-form" novalidate>
+					<div class="panel" role="tabpanel" aria-labelledby="tab-company"
+						id="panel-company">
+						<div class="section-label">
+							<h3>Od kogo?</h3><span>Wybierz spółkę wystawiającą ofertę</span>
+						</div>
+						<div class="company-grid" id="company-grid"></div>
+						<div class="company-details" id="company-details"></div>
+						<div class="section-label client-label">
+							<h3>Dla kogo?</h3><span>Dane Twojego klienta</span>
+						</div>
+						<label class="field full">Nazwa firmy / klienta <span
+								class="required">*</span><input data-field="client.name"
+								autocomplete="organization" maxlength="150"
+								placeholder="np. Lumen Concept sp. z o.o." required></label>
+						<div class="field-row"><label class="field">Osoba kontaktowa<input
+									data-field="client.contact" autocomplete="name" maxlength="100"
+									placeholder="Imię i nazwisko"></label><label
+								class="field">NIP<input data-field="client.nip" maxlength="25"
+									inputmode="numeric" placeholder="000-000-00-00"></label></div>
+						<div class="field-row"><label class="field">Adres e-mail<input
+									data-field="client.email" type="email" autocomplete="email"
+									maxlength="150" placeholder="kontakt@firma.pl"></label><label
+								class="field">Adres firmy<input data-field="client.address"
+									autocomplete="street-address" maxlength="200"
+									placeholder="Ulica, kod i miasto"></label></div>
+						<div class="panel-bottom"><span><svg>
+									<use href="#i-check" />
+								</svg>Dane spółki uzupełniają się automatycznie</span><button
+								class="button small dark" type="button" data-next="items">Dalej:
+								pozycje<svg>
+									<use href="#i-arrow" />
+								</svg></button></div>
+					</div>
+					<div class="panel" role="tabpanel" aria-labelledby="tab-items" id="panel-items"
+						hidden>
+						<div class="section-label">
+							<h3>Co oferujesz?</h3><span>Kwoty jednostkowe podawaj netto</span>
+						</div>
+						<div id="items-list" class="items-list"></div>
+						<button id="add-item" class="add-item" type="button"><svg>
+								<use href="#i-plus" />
+							</svg>Dodaj pozycję</button>
+						<div class="discount-row">
+							<div><strong>Rabat dla klienta</strong><span>Naliczany osobno dla każdej
+									pozycji</span></div><label class="percent-field"><input
+									data-field="discount" inputmode="decimal"
+									aria-label="Rabat procentowy"
+									maxlength="6"><span>%</span></label>
+						</div>
+						<div id="calculation" class="calculation"></div>
+						<div class="panel-bottom"><span>VAT jest liczony od kwoty po
+								rabacie</span><button class="button small dark" type="button"
+								data-next="details">Dalej: szczegóły<svg>
+									<use href="#i-arrow" />
+								</svg></button></div>
+					</div>
+					<div class="panel" role="tabpanel" aria-labelledby="tab-details"
+						id="panel-details" hidden>
+						<div class="section-label">
+							<h3>Ostatnie szczegóły</h3><span>Nadaj ofercie własny charakter</span>
+						</div>
+						<label class="field">Tytuł oferty <span class="required">*</span><textarea
+								data-field="title" rows="2" maxlength="160"
+								required></textarea></label>
+						<label class="field">Krótki opis<input data-field="subtitle" maxlength="240"
+								placeholder="Czego dotyczy współpraca?"></label>
+						<div class="field-row"><label class="field">Numer oferty<input
+									data-field="number" maxlength="50" required></label><label
+								class="field">Data wystawienia<input type="date" data-field="date"
+									required></label></div>
+						<div class="field-row"><label class="field">Ważna do<input type="date"
+									data-field="validUntil" required></label><label
+								class="field">Waluta<input value="PLN · złoty polski" readonly
+									aria-label="Waluta PLN"></label></div>
+						<label class="field">Warunki współpracy<textarea data-field="notes" rows="3"
+								maxlength="3000"
+								placeholder="Termin realizacji, zakres poprawek, dodatkowe ustalenia…"></textarea></label>
+						<label class="field">Warunki płatności<input data-field="payment"
+								maxlength="500"></label>
+						<div class="field-row"><label class="field">Osoba przygotowująca<input
+									data-field="signature" maxlength="100"></label><label
+								class="field">Stanowisko<input data-field="position"
+									maxlength="100"></label></div>
+						<div class="panel-bottom"><span><svg>
+									<use href="#i-check" />
+								</svg>Gotowe? Sprawdź podgląd i pobierz PDF.</span></div>
+					</div>
+				</form>
+				<div class="editor-footer">
+					<div><span class="privacy-dot"></span><span>Twój szkic zostaje w tej
+							przeglądarce</span></div><button type="button" id="save-snapshot"
+						class="text-button"><svg>
+							<use href="#i-save" />
+						</svg>Zapisz wersję</button>
+				</div>
+			</section>
+			<section class="preview-column" aria-label="Podgląd oferty">
+				<div class="preview-toolbar">
+					<div><span class="live-dot"></span>
+						<h2>Podgląd na żywo</h2>
+					</div>
+					<div class="page-controls"><button id="prev-page" class="icon-button"
+							aria-label="Poprzednia strona"><svg class="reverse">
+								<use href="#i-chevron" />
+							</svg></button><span id="page-count">1 / 1</span><button id="next-page"
+							class="icon-button" aria-label="Następna strona"><svg>
+								<use href="#i-chevron" />
+							</svg></button></div>
+				</div>
+				<div class="paper-stage">
+					<div class="paper" id="paper" aria-live="off">
+						<div class="paper-loading">Przygotowujemy Twoją ofertę…</div>
+					</div>
+					<div class="paper-caption"><span>Format A4</span><span
+							id="document-status"><svg>
+								<use href="#i-check" />
+							</svg>Gotowa do pobrania</span></div>
+				</div>
+				<div class="template-bar"><span>STYL DOKUMENTU</span>
+					<div role="group" aria-label="Styl dokumentu"><button
+							class="template-option active" data-template="editorial"
+							aria-pressed="true"><i
+								class="template-swatch editorial"></i>Editorial</button><button
+							class="template-option" data-template="classic" aria-pressed="false"><i
+								class="template-swatch classic"></i>Classic</button><button
+							class="template-option" data-template="minimal" aria-pressed="false"><i
+								class="template-swatch minimal"></i>Minimal</button></div>
+				</div>
+				<button class="download-button" id="download-pdf"><span class="download-icon"><svg>
+							<use href="#i-down" />
+						</svg></span><span><strong>Pobierz ofertę PDF</strong><small
+							id="download-total">Gotowa do wysłania klientowi</small></span><svg
+						class="download-arrow">
+						<use href="#i-arrow" />
+					</svg></button>
+				<p class="data-footnote">Dane firm w przykładzie są fikcyjne.</p>
+			</section>
+		</div>
+		<footer class="page-footer"><span>Oferta Studio</span><span>Oferty gotowe do
+				wysłania.</span></footer>
+	</main>
+	<dialog id="modal">
+		<div class="modal-head">
+			<h2 id="modal-title"></h2><button class="icon-button" id="close-modal"
+				aria-label="Zamknij"><svg>
+					<use href="#i-close" />
+				</svg></button>
+		</div>
+		<div id="modal-body"></div>
+	</dialog>
+	<div id="toast" class="toast" role="status" aria-live="polite"></div>
+	<input type="file" id="import-input" accept="application/json,.json" hidden>
+</body>
+
+</html>
